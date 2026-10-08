@@ -1,0 +1,15 @@
+name: Feature request
+description: Describe a workflow Tack could support better.
+body:
+  - type: textarea
+    id: workflow
+    attributes:
+      label: User need
+      description: Who is affected, and what are they trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Suggested outcome
+      description: Describe the resulting behavior and any useful alternatives.

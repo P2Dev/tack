@@ -1,178 +1,84 @@
 # Tack
 
-Tack is a small, shared issue tracker for development teams that want the
-clarity of post-it notes without ticket-filing ceremony. A title is enough to
-create a card. Work moves through Backlog, Ready, In progress, and Done; review
-and QA stay in the tools where they already happen.
+**A shared issue board that starts with a title.**
 
-## What it includes
+Tack is a self-hosted issue tracker for small development teams. Capture a card,
+move it through Backlog, Ready, In progress, and Done, and add context as you go.
+Your team and local agents work with the same boards.
 
-- Multiple private workspace boards with four fixed statuses
-- Board switching and administrator-managed board creation/removal
-- Title-only capture above each column’s cards, with filters preserved
-- Four columns on desktop; explicit column selection on phones and tablets
-- Per-board `ENG-N` keys, cross-board moves, and permanent aliases for old links
-- Autosaved title and Markdown description, with retry/discard and tab-local
-  draft recovery after interrupted saves
-- Optional assignee and administrator-managed labels
-- Key/title search and shareable assignee/label filters
-- Pointer, touch, keyboard, and native-select movement
-- Recoverable archive with immediate Undo
-- Refresh-on-focus and short polling, with checked/paused/unavailable feedback
-- Persistent action recovery and sign-in in another tab for interrupted forms
-- Local email/password accounts with `admin` and `member` roles
-- Optional Cognito User Pools and OIDC sign-in, with local accounts still available
-- Administrator account creation, disable/enable, role, and password reset
-  with feedback beside the affected account and explicit password-reset Cancel
-- User-managed, scoped API keys and a versioned agent API
-- Optional local stdio MCP adapter with retry and stale-edit protection
-- Administrator-only JSON and CSV data exports
-- PostgreSQL persistence and versioned SQL migrations
-- A self-hosted Docker Compose stack with health checks
-- Backup and restore commands
+[Project site](https://p2dev.github.io/tack/) · [Documentation](docs/README.md) · [Report an issue](https://github.com/P2Dev/tack/issues) · [MIT license](LICENSE)
 
-Comments, notifications, review states, QA workflow, sprints, estimates,
-custom fields, and workflow configuration are intentionally excluded.
+![Tack’s desktop board with four status columns and collapsible board navigation](docs/images/board-desktop.png)
 
-## Self-host with Docker Compose
+## Start locally
 
-Requirements:
+You need **Git, Docker with Compose, and OpenSSL**. On Windows, run these commands
+in WSL or Git Bash with Docker Desktop running.
 
-- Docker Engine with Docker Compose
-- A reverse proxy that provides TLS for any non-local deployment
-
-Create the environment file:
-
-```bash
-cp .env.example .env
-openssl rand -base64 32
+```sh
+git clone https://github.com/P2Dev/tack.git
+cd tack
+./scripts/setup.sh
+docker compose up -d --build --wait
 ```
 
-Put the generated value in `BETTER_AUTH_SECRET`, replace both database and
-administrator passwords, and set these values to the externally reachable
-origin:
+Open **[localhost:3000](http://localhost:3000)**. Sign in with
+`TACK_ADMIN_EMAIL` and `TACK_ADMIN_PASSWORD` from the generated `.env` file.
+The first board starts empty. Create your first card, then add colleagues through
+**Options → Team**.
 
-```dotenv
-BETTER_AUTH_URL=https://tack.example.com
-BETTER_AUTH_TRUSTED_ORIGINS=https://tack.example.com
-```
+The setup script generates random secrets and preserves an existing `.env`.
+The app and database listen on loopback by default. For team access over the LAN
+or Internet, follow the [HTTPS deployment guide](docs/DEPLOYMENT.md).
+[Manual setup and port changes](docs/SETUP.md) are also documented.
 
-Start Tack:
+## What you can do
 
-```bash
-docker compose up -d --build
-docker compose ps
-```
+- Capture a title, autosave notes, assign a teammate, and add labels.
+- Switch boards in place using a collapsible sidebar; use one status at a time on mobile.
+- Give cards readable keys such as `ENG-42`; move cards between boards while keeping old links working.
+- Archive and restore cards, search by title/key, and share filtered views.
+- Sign in locally or through configured Cognito/OIDC providers.
+- Create scoped API keys and connect local agents through the HTTP API or optional MCP adapter.
 
-Open `BETTER_AUTH_URL` and sign in with `TACK_ADMIN_EMAIL` and
-`TACK_ADMIN_PASSWORD`. The bootstrap password is used only when that account is
-first created; changing it in `.env` does not overwrite an existing account's
-password. Further accounts are managed from **Options → Team** inside Tack.
+Administrators manage accounts, boards, and labels and export JSON/CSV snapshots.
+All signed-in members share all boards; API keys can be restricted to selected
+boards. Tack deliberately keeps four statuses and leaves review, QA, sprints,
+and notifications to other tools.
 
-Administrators can also download a complete JSON snapshot or an issue-oriented
-CSV from **Options → Team**. Exports include active and archived cards, labels, and
-account profiles; they never include password hashes, session tokens, or
-authentication records.
+## Documentation
 
-The database port is bound to loopback only. The application port is exposed
-for the host reverse proxy. PostgreSQL data is stored in the named
-`tack_postgres_data` volume.
+| I want to… | Guide |
+| --- | --- |
+| Install Tack | [Setup](docs/SETUP.md) |
+| Learn the everyday workflow | [User guide](docs/USER_GUIDE.md) |
+| Configure environment variables | [Configuration](docs/CONFIGURATION.md) |
+| Deploy, upgrade, back up, or restore | [Operations](docs/DEPLOYMENT.md) |
+| Configure Cognito or another identity provider | [Authentication](docs/AUTHENTICATION.md) |
+| Connect an agent or call the API | [API keys, HTTP API, and MCP](docs/agent-access/README.md) |
+| Work on the code | [Development](docs/DEVELOPMENT.md) and [Contributing](CONTRIBUTING.md) |
+| Resolve a setup or runtime problem | [Troubleshooting](docs/TROUBLESHOOTING.md) |
 
-### Back up and restore
+The [documentation index](docs/README.md) also links the architecture, design
+decisions, verification records, and project-site publishing instructions.
 
-Create a PostgreSQL custom-format backup:
+## Development
 
-```bash
-./scripts/backup.sh
-# or choose the output path
-./scripts/backup.sh /secure/backups/tack.dump
-```
+Use **Node.js 24.9+** and **pnpm 11.9+**. With `.env` generated as above:
 
-Restore replaces the current Tack database, so the command requires an
-explicit confirmation flag:
-
-```bash
-docker compose stop app
-./scripts/restore.sh /secure/backups/tack.dump --confirm
-docker compose start app
-```
-
-The scripts require only a POSIX shell and Docker Compose. The `pnpm db:backup`
-and `pnpm db:restore` aliases are available on development machines. Keep
-backups outside the Docker host and set a retention policy appropriate for the
-team.
-
-## Local development
-
-Requirements:
-
-- Node.js 24.9 or newer
-- pnpm 11.9 or newer
-- PostgreSQL 18 (the Compose database is the easiest option)
-
-After creating `.env`, start PostgreSQL and run the app on the host:
-
-```bash
+```sh
+pnpm install --frozen-lockfile
 docker compose up -d db
-export DATABASE_URL='postgresql://tack:YOUR_POSTGRES_PASSWORD@127.0.0.1:54329/tack'
-export BETTER_AUTH_SECRET='YOUR_32_CHARACTER_OR_LONGER_SECRET'
-export BETTER_AUTH_URL='http://localhost:3000'
-export TACK_ADMIN_EMAIL='admin@example.com'
-export TACK_ADMIN_PASSWORD='a-strong-temporary-password'
-
-pnpm install
 pnpm db:migrate
 pnpm db:bootstrap
-pnpm db:seed
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). The seed command is safe
-to rerun and skips an already-populated board.
-
-## Commands
-
-| Command | Purpose |
-| --- | --- |
-| `pnpm mcp` | Run the local MCP adapter with `TACK_BASE_URL` and `TACK_API_KEY` |
-| `pnpm dev` | Start the development server |
-| `pnpm build` | Create the production build |
-| `pnpm start` | Run the production build |
-| `pnpm db:migrate` | Apply unapplied PostgreSQL migrations |
-| `pnpm db:bootstrap` | Create or confirm the configured administrator |
-| `pnpm db:seed` | Add representative issues to an empty board |
-| `pnpm db:backup [path]` | Create a custom-format PostgreSQL backup |
-| `pnpm db:restore path --confirm` | Replace the database from a backup |
-| `pnpm lint` | Run ESLint |
-| `pnpm typecheck` | Run TypeScript without emitting files |
-| `pnpm test` | Run PostgreSQL-backed repository/domain tests |
-| `pnpm test:e2e` | Run desktop and mobile authenticated browser tests |
-
-Install Playwright's Chromium build once before the browser suite:
-
-```bash
-pnpm exec playwright install chromium
-```
-
-`pnpm test` expects `TEST_DATABASE_URL` to point to a disposable PostgreSQL
-database. It creates and removes isolated schemas prefixed `tack_`, including repository, migration, identity, and agent-service tests.
-`pnpm test:e2e` uses `E2E_DATABASE_URL` and recreates only the
-`tack_playwright` schema.
-
-## Project notes
-
-- [Agent access](./docs/agent-access/README.md) explains user API keys, HTTP operations, the local MCP adapter, and LAN deployment.
-- [Boards and issue keys](./docs/BOARDS.md) explains switching, moves, removal, and migration.
-- [Authentication setup](./docs/AUTHENTICATION.md) covers Cognito, other OIDC providers, local fallback, and account provisioning.
-
-- [Stakeholder overview](./docs/stakeholder-overview/README.md) explains the delivered UI/UX upgrades, with screenshots and an offline browser presentation.
-- [RESEARCH.md](./RESEARCH.md) records product and implementation evidence.
-- [ROADMAP.md](./ROADMAP.md) defines completed and planned milestones.
-- [PILOT.md](./PILOT.md) is the launch, observation, and consolidation runbook.
-- [ARCHITECTURE.md](./ARCHITECTURE.md) describes boundaries and invariants.
-- [TESTING.md](./TESTING.md) records verification and known gaps.
-- [DECISIONS.md](./DECISIONS.md) records accepted architecture choices.
+Run the app container and the development server separately if they use the same
+port. The [development guide](docs/DEVELOPMENT.md) covers tests and optional
+sample data. The [project site](docs/PROJECT_SITE.md) is built from these Markdown
+guides and published through GitHub Pages.
 
 ## License
 
-[MIT](./LICENSE) © 2026 p2dev.
+[MIT](LICENSE) © 2026 p2dev.

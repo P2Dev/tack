@@ -8,3 +8,9 @@ backups
 .env.local
 .git
 *.log
+
+.site
+.env.*
+.github
+!.env.example
+next-env.d.ts

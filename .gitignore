@@ -25,3 +25,7 @@ backups/
 .DS_Store
 *.tsbuildinfo
 *.log
+
+# generated project site
+.site/
+next-env.d.ts

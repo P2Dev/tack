@@ -2,6 +2,10 @@
 
 Date: 2026-07-27
 
+## Public project site and setup — 2026-10-08
+
+Typecheck/lint and 38 integration checks passed. A clean temporary Docker installation verified generated administrator sign-in, empty board, card creation, health, private/non-overwritten configuration, and the production build. Static checks cover 17 pages and 494 references; 12 route/width axe checks plus keyboard installation, search, guide navigation, enlarged text, and forced-color/reduced-motion inspection passed. Screenshots use disposable data. See [delivery evidence](docs/releases/2026-10-08-project-site.md). GitHub CI/Pages runs are the publication checks.
+
 ## User API keys and local MCP — 2026-10-04
 
 - **38 unit/integration tests passed**; full browser suite **76 passed, six intentional skips**. Final focused agent suite: five passed, one viewport duplicate skipped, followed by final metadata-display checks on desktop/mobile.

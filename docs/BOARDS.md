@@ -8,7 +8,7 @@ A title-only card receives the next number in its board: `ENG-1`, `ENG-2`, and s
 
 ## Move a card
 
-Open a card, choose **Move to board**, review the consequence, then select **Move card**. Unsaved title/description edits must save successfully before the move proceeds. The destination opens with that card selected.
+Open a card, expand **Move to another board or reorder**, and choose **Move to board**, review the consequence, then select **Move card**. Unsaved title/description edits must save successfully before the move proceeds. The destination opens with that card selected.
 
 The card receives the next destination-board number. Its internal ID stays unchanged, as do its status, notes, assignee, labels, and archived state. Active cards go to the end of the destination status column; the source gap closes. Archived cards can be moved directly from their archived detail view.
 

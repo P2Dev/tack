@@ -41,7 +41,7 @@ Client secrets stay on the server. The sign-in page receives only provider IDs a
 
 - Authorization code flow uses PKCE and state verification. Tack obtains identity from authenticated UserInfo; it does not trust decoded, unverified ID-token claims.
 - Verified provider email can link to a pre-created local account. Different emails are not linked. Public local signup stays disabled.
-- Callback destinations are restricted to Tack's own board, Team, and sign-in pages. Board, issue, and filter context survives the round trip.
+- Callback destinations are restricted to Tack's own board, Team, API keys, and sign-in pages. Board, issue, and filter context survives the round trip.
 - Failed/cancelled provider login returns to sign-in with an error and the local alternative. A blocked provider does not remove local sign-in.
 - Disabled Tack users cannot sign in through either method. Existing role checks still govern administration.
 - **Sign out** ends the Tack session. It does not end the Cognito/organization browser SSO session; signing in again may reuse that provider session.

@@ -1,0 +1,22 @@
+name: Bug report
+description: Report a reproducible problem with Tack.
+body:
+  - type: markdown
+    attributes:
+      value: "For vulnerabilities, use the repository’s private security reporting. Do not include credentials or private team data."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and reproduction
+      description: Include steps, expected behavior, and actual behavior.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit or version
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and redacted evidence
+      description: Browser, OS, Docker/Node versions, relevant logs or screenshots.

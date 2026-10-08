@@ -7,21 +7,25 @@
     "node": ">=24.9.0"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/with-env.mjs next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:e2e": "playwright test",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "node scripts/with-env.mjs vitest run",
+    "test:watch": "node scripts/with-env.mjs vitest",
+    "test:e2e": "node scripts/with-env.mjs playwright test",
     "test:e2e:prepare": "node --import tsx scripts/e2e-prepare.ts",
-    "db:migrate": "node --import tsx scripts/migrate.ts",
-    "db:seed": "node --import tsx scripts/seed.ts",
-    "db:bootstrap": "node --import tsx scripts/bootstrap-admin.ts",
+    "db:migrate": "node scripts/with-env.mjs node --import tsx scripts/migrate.ts",
+    "db:seed": "node scripts/with-env.mjs node --import tsx scripts/seed.ts",
+    "db:bootstrap": "node scripts/with-env.mjs node --import tsx scripts/bootstrap-admin.ts",
     "db:backup": "./scripts/backup.sh",
     "db:restore": "./scripts/restore.sh",
-    "mcp": "node --import tsx tools/tack-mcp.ts"
+    "mcp": "node --import tsx tools/tack-mcp.ts",
+    "docs:build": "node scripts/build-docs.mjs",
+    "docs:check": "node scripts/check-docs.mjs",
+    "docs:preview": "node scripts/serve-docs.mjs",
+    "docs:verify": "node scripts/verify-docs.mjs"
   },
   "dependencies": {
     "@better-auth/api-key": "1.6.25",
@@ -47,6 +51,7 @@
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.5",
     "eslint-config-next": "16.2.12",
+    "remark-gfm": "4.0.1",
     "tsx": "4.23.1",
     "typescript": "6.0.3",
     "vitest": "4.1.10"

@@ -51,7 +51,7 @@ services:
       COGNITO_NAME: ${COGNITO_NAME:-Amazon Cognito}
       COGNITO_ALLOW_SIGN_UP: ${COGNITO_ALLOW_SIGN_UP:-false}
     ports:
-      - "${TACK_PORT:-3000}:3000"
+      - "${TACK_BIND_ADDRESS:-127.0.0.1}:${TACK_PORT:-3000}:3000"
     healthcheck:
       test:
         [

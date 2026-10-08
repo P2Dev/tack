@@ -1,3 +1,9 @@
+# Active delivery — Public project site and documentation
+
+2026-10-08: prepared the public site, simplified README/setup, completed task-oriented guides, and added contribution and CI/Pages workflows. Local checks passed: 38 integration tests, clean Docker quick start, typecheck/lint, 494 static references, and responsive/keyboard/axe site checks. [Delivery record](docs/releases/2026-10-08-project-site.md). Next: push, observe CI/Pages, and confirm the public URL. No live Tack LAN deployment is part of this release.
+
+---
+
 # Completed locally — User API keys and local agent access
 
 2026-10-04: implemented user-owned API keys, the scoped `/api/v1` API, and the optional local stdio MCP adapter. All active users can create, inspect, rename and revoke their own keys; administrators can revoke others. Board/scoped access, hash-only storage, expiry, rate limits, revision conflicts and 24-hour mutation idempotency are verified. Local and provider-backed accounts share the flow.
