@@ -41,7 +41,10 @@ test("contains keyboard focus, blocks background switching, and flushes before a
   await expect(drawer).toHaveCount(0);
   expect(await persisted(page, issue.id)).toMatchObject({ title: "U1 latest title before archive", archivedAt: expect.any(String) });
   await page.getByRole("button", { name: "Undo", exact: true }).click();
-  await expect(page.getByRole("button", { name: "U1 latest title before archive", exact: true })).toBeVisible();
+  const restoredCard = page.locator(`[data-issue-trigger="${issue.id}"]`);
+  await expect(restoredCard).toBeVisible();
+  await expect(restoredCard).toHaveText("U1 latest title before archive");
+  expect((await persisted(page, issue.id))?.archivedAt).toBeNull();
 });
 
 test("drains edits typed during a delayed save before allowing close", async ({ page }) => {
@@ -206,6 +209,7 @@ test("a queued failed move cannot roll back another card's successful move", asy
     active += 1;
     maxActive = Math.max(maxActive, active);
     if (route.request().url().includes(first.id)) {
+      expect(route.request().postDataJSON().status).toBe("ready");
       await gate;
       const response = await route.fetch();
       active -= 1;
@@ -225,6 +229,32 @@ test("a queued failed move cannot roll back another card's successful move", asy
   expect(maxActive).toBe(1);
   expect(await persisted(page, first.id)).toMatchObject({ status: "ready" });
   expect(await persisted(page, second.id)).toMatchObject({ status: "in_progress" });
+});
+
+test("waits for hydration before accepting a card status selection", async ({ page }) => {
+  const issue = await createCard(page, "U1 hydration-safe status");
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => { release = resolve; });
+  let blockedChunks = 0;
+  await page.route("**/_next/static/chunks/**", async (route) => {
+    if (new URL(route.request().url()).pathname.endsWith(".js")) {
+      blockedChunks += 1;
+      await gate;
+    }
+    await route.continue();
+  });
+  try {
+    await page.goto("/", { waitUntil: "commit" });
+    const status = page.getByLabel(`Move ${issue.key}`, { exact: true });
+    await expect.poll(() => blockedChunks).toBeGreaterThan(0);
+    await expect(status).toBeDisabled();
+    release();
+    await expect(status).toBeEnabled();
+    await status.selectOption("ready");
+    await expect.poll(async () => (await persisted(page, issue.id))?.status).toBe("ready");
+  } finally {
+    release();
+  }
 });
 
 test("keeps move feedback and Undo operable inside the modal editor", async ({ page }) => {

@@ -4,7 +4,7 @@ Date: 2026-07-27
 
 ## Public project site and setup — 2026-10-08
 
-Typecheck/lint and 38 integration checks passed. A clean temporary Docker installation verified generated administrator sign-in, empty board, card creation, health, private/non-overwritten configuration, and the production build. Static checks cover 17 pages and 494 references; 12 route/width axe checks plus keyboard installation, search, guide navigation, enlarged text, and forced-color/reduced-motion inspection passed. Screenshots use disposable data. See [delivery evidence](docs/releases/2026-10-08-project-site.md). GitHub CI/Pages runs are the publication checks.
+Typecheck/lint and 38 integration checks passed. A clean temporary Docker installation verified generated administrator sign-in, empty board, card creation, health, private/non-overwritten configuration, and the production build. Static checks cover 17 pages and 494 references; 12 route/width axe checks plus keyboard installation, search, guide navigation, enlarged text, and forced-color/reduced-motion inspection passed. Screenshots use disposable data. See [delivery evidence](docs/releases/2026-10-08-project-site.md). The Pages deployment and live HTTPS navigation/search/axe checks passed. Initial application CI exposed a pre-hydration status selection and a duplicate-title archive assertion; both were corrected. Eight focused browser checks passed, with two intentional viewport duplicates skipped, including delayed-script hydration acceptance on desktop/mobile. The [CI workflow](https://github.com/P2Dev/tack/actions/workflows/ci.yml) records full commit-specific verification.
 
 ## User API keys and local MCP — 2026-10-04
 

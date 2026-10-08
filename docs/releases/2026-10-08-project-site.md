@@ -24,6 +24,8 @@ Generated site output and Next.js environment types are excluded from Git.
 - Site build and README/source-reference checks passed: 17 static pages, 494 generated local links/assets/anchors, zero broken references.
 - Rendered review and 12 axe route/width checks at 1440, 900, 390, and 320 pixels passed. Search, keyboard installation, mobile guide disclosure, enlarged-text reflow, reduced motion, forced colors, and page-error checks passed.
 - Public screenshots use clean sample data; transient site screenshots stay in ignored build output.
+- Initial GitHub application CI passed typecheck, lint, 38 integration tests, and production build. Its full browser run passed 74 checks, skipped six intentional duplicates, and exposed two failures. The status selector now stays disabled until React attaches its handler, preventing an early selection from being replayed with the old value. Archive restoration assertions now identify the created card rather than a title shared across runs. Repeated archive/queued-move checks passed six checks with two intentional skips; deliberately delayed-script hydration checks passed on both desktop and mobile.
+- The [application CI workflow](https://github.com/P2Dev/tack/actions/workflows/ci.yml) runs the complete application and project-site checks for the published sources; use its commit-specific run for current results.
 
 ## UI audit outcomes
 
@@ -40,6 +42,13 @@ installation-specific.
 
 ## Publication
 
-GitHub Pages is configured to use Actions at https://p2dev.github.io/tack/.
-The verified sources and CI/Pages workflows are prepared for the main branch.
-Successful workflow runs and live-site acceptance complete publication.
+The project site is published at [p2dev.github.io/tack](https://p2dev.github.io/tack/).
+The [Pages deployment](https://github.com/P2Dev/tack/actions/runs/37859735159)
+completed successfully for implementation commit 1cf8fc2. HTTPS checks passed
+for all 21 published guide and asset URLs. A live browser check passed install
+navigation, full-text search, axe, and page-error checks with zero violations or
+page errors. GitHub Pages uses the Actions source and enforces HTTPS.
+
+The repository homepage points to the site, and private vulnerability reporting
+is enabled. The project-site delivery is complete; the application CI workflow
+retains the full verification history for each source commit.

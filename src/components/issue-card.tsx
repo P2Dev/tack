@@ -3,9 +3,12 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
+import { useSyncExternalStore } from "react";
 
 import type { Issue, IssueStatus } from "@/lib/types";
 import { ISSUE_STATUSES, STATUS_META } from "@/lib/types";
+
+const subscribeToHydration = () => () => {};
 
 type IssueCardProps = {
   issue: Issue;
@@ -24,6 +27,8 @@ export function IssueCard({
   onOpen,
   onMoveToStatus,
 }: IssueCardProps) {
+  // React must attach the change handler before the server-rendered select is usable.
+  const hydrated = useSyncExternalStore(subscribeToHydration, () => true, () => false);
   const {
     attributes,
     listeners,
@@ -116,6 +121,7 @@ export function IssueCard({
             id={`status-${issue.id}`}
             className="card-status"
             value={issue.status}
+            disabled={!hydrated}
             onChange={(event) =>
               onMoveToStatus?.(
                 issue.id,

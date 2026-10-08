@@ -1,6 +1,8 @@
-# Active delivery — Public project site and documentation
+# Published — Public project site and documentation
 
-2026-10-08: prepared the public site, simplified README/setup, completed task-oriented guides, and added contribution and CI/Pages workflows. Local checks passed: 38 integration tests, clean Docker quick start, typecheck/lint, 494 static references, and responsive/keyboard/axe site checks. [Delivery record](docs/releases/2026-10-08-project-site.md). Next: push, observe CI/Pages, and confirm the public URL. No live Tack LAN deployment is part of this release.
+2026-10-08: published [Tack’s project site](https://p2dev.github.io/tack/), simplified README/setup, completed task-oriented guides, and added contribution and CI/Pages workflows. Local checks passed: 38 integration tests, clean Docker quick start, typecheck/lint, 494 static references, responsive/keyboard/axe site checks, and live HTTPS/navigation/search acceptance. Publication CI exposed an early-hydration status-control defect and a duplicate-title test assertion; both were corrected and eight focused browser checks passed (two intentional viewport skips). [Delivery record](docs/releases/2026-10-08-project-site.md) and [application CI results](https://github.com/P2Dev/tack/actions/workflows/ci.yml).
+
+The project-site implementation and publication are complete. No additional features are selected for this target. A live Tack LAN deployment remains a separate installation task.
 
 ---
 
