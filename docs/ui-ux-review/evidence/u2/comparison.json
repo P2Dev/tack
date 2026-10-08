@@ -1,0 +1,64 @@
+{
+  "source": "Workspace production build, localhost:3105",
+  "activeCards": 6,
+  "archivedCards": 0,
+  "cards": [
+    {
+      "key": "TCK-1",
+      "title": "Make the first issue effortless to capture",
+      "status": "backlog"
+    },
+    {
+      "key": "TCK-2",
+      "title": "Decide where the pilot will live",
+      "status": "backlog"
+    },
+    {
+      "key": "TCK-6",
+      "title": "test",
+      "status": "backlog"
+    },
+    {
+      "key": "TCK-3",
+      "title": "Keep the board readable at a glance",
+      "status": "ready"
+    },
+    {
+      "key": "TCK-4",
+      "title": "Build title-only quick add",
+      "status": "in_progress"
+    },
+    {
+      "key": "TCK-5",
+      "title": "Agree on four plain-language states",
+      "status": "done"
+    }
+  ],
+  "metrics": [
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "boardTop": 247.5,
+      "quickAddTop": 333
+    },
+    {
+      "width": 900,
+      "scrollWidth": 900,
+      "boardTop": 334.5,
+      "quickAddTop": 420
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390,
+      "boardTop": 309.546875,
+      "quickAddTop": 391.046875
+    },
+    {
+      "width": 320,
+      "scrollWidth": 320,
+      "boardTop": 354.734375,
+      "quickAddTop": 436.234375
+    }
+  ],
+  "errors": []
+}

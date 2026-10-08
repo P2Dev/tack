@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# next
+.next/
+out/
+
+# testing
+coverage/
+playwright-report/
+test-results/
+
+# local data
+data/
+backups/
+
+# local environment
+.env
+.env.*
+!.env.example
+.aws/
+.codex/
+
+# operating system and tooling
+.DS_Store
+*.tsbuildinfo
+*.log

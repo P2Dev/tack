@@ -1,0 +1,45 @@
+{
+  "quickDraftAfterTeam": {
+    "value": "",
+    "discardPrompts": 0
+  },
+  "boardManagerCloseFocus": {
+    "tag": "BODY",
+    "label": null,
+    "text": ""
+  },
+  "nextTabAfterManagerClose": {
+    "tag": "BUTTON",
+    "label": "Hide board panel"
+  },
+  "cardHistory": {
+    "openedUrl": "http://localhost:3000/?board=TCK&issue=TCK-2",
+    "afterBack": {
+      "url": "http://localhost:3000/?board=TST",
+      "heading": "Test",
+      "dialogs": 0
+    }
+  },
+  "saveRecovery": {
+    "retryVisible": true,
+    "text": "Your changes couldn’t be saved. They are still in the editor.",
+    "narrow": {
+      "bodyHeight": 533.109375,
+      "footerTop": 754,
+      "overflow": false
+    }
+  },
+  "export": {
+    "boards": [
+      "TCK",
+      "TST"
+    ],
+    "cardBoardIds": [
+      "TCK",
+      "TST"
+    ],
+    "uiHeading": "Export the board",
+    "authSecretsPresent": false
+  },
+  "currentBoardUnchanged": true
+}

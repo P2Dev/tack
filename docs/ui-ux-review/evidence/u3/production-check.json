@@ -1,0 +1,24 @@
+{
+  "source": "Local production build at localhost:3105",
+  "activeCards": 6,
+  "archivedCards": 0,
+  "originalCardsUnchanged": true,
+  "checks": [
+    {
+      "page": "board",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "page": "board",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "page": "team",
+      "width": 320,
+      "scrollWidth": 320
+    }
+  ],
+  "errors": []
+}

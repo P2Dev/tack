@@ -1,0 +1,81 @@
+{
+  "layout": [
+    {
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "overflow": false
+    },
+    {
+      "width": 1180,
+      "overflow": false
+    },
+    {
+      "width": 1179,
+      "overflow": false
+    },
+    {
+      "width": 1100,
+      "overflow": false
+    },
+    {
+      "width": 900,
+      "overflow": false
+    },
+    {
+      "width": 700,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "overflow": false
+    }
+  ],
+  "axe": [
+    {
+      "surface": "board-320",
+      "violations": []
+    },
+    {
+      "surface": "editor",
+      "violations": []
+    },
+    {
+      "surface": "manager",
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "managerFocus": true,
+  "dataIntegrity": {
+    "unchanged": true,
+    "tables": {
+      "boards": {
+        "count": 2,
+        "sha256": "4f598ed0a73172ad781df6d2b35ff07902ffbb111791cd982ac19f7c1fe8a228"
+      },
+      "issues": {
+        "count": 7,
+        "sha256": "b7755be34c57250309285f2e029425321f053fae15dda02d5436a0577119aeda"
+      },
+      "issue_keys": {
+        "count": 8,
+        "sha256": "8d14b24492bf8bd91913ccce0534b2eee569f34edcc433d7661be85b800829df"
+      },
+      "issue_labels": {
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "labels": {
+        "count": 4,
+        "sha256": "4c0a211907c597cb1483f64a009ca2fdb21067d4f4b21ed6a320836a35cfc394"
+      }
+    }
+  }
+}

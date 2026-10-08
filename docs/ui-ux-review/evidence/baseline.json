@@ -1,0 +1,38 @@
+{
+  "source": "Workspace Next dev, localhost:3105",
+  "redirected": "http://localhost:3105/sign-in",
+  "afterLogin": "http://localhost:3105/",
+  "activeCards": 6,
+  "archivedCards": 0,
+  "metrics": [
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "boardTop": 353.453125,
+      "quickAddTop": 606.453125
+    },
+    {
+      "width": 900,
+      "scrollWidth": 900,
+      "boardTop": 360.03125,
+      "quickAddTop": 1148.53125
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390,
+      "boardTop": 588.53125,
+      "quickAddTop": 911.53125
+    },
+    {
+      "width": 320,
+      "scrollWidth": 320,
+      "boardTop": 595.609375,
+      "quickAddTop": 918.609375
+    }
+  ],
+  "focusEscape": {
+    "label": "",
+    "inDialog": false
+  },
+  "errors": []
+}

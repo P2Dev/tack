@@ -1,0 +1,85 @@
+{
+  "artifact": "tack-overview.html",
+  "sections": 9,
+  "images": 9,
+  "checks": [
+    {
+      "section": 1,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 900,
+      "scrollHeight": 900
+    },
+    {
+      "section": 2,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 900,
+      "scrollHeight": 900
+    },
+    {
+      "section": 3,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 900,
+      "scrollHeight": 900
+    },
+    {
+      "section": 4,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 900,
+      "scrollHeight": 900
+    },
+    {
+      "section": 5,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 900,
+      "scrollHeight": 900
+    },
+    {
+      "section": 6,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 900,
+      "scrollHeight": 900
+    },
+    {
+      "section": 7,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 900,
+      "scrollHeight": 900
+    },
+    {
+      "section": 8,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 900,
+      "scrollHeight": 900
+    },
+    {
+      "section": 9,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 900,
+      "scrollHeight": 900
+    },
+    {
+      "viewport": 390,
+      "readingOverflow": false,
+      "presentationOverflow": false
+    },
+    {
+      "viewport": 320,
+      "readingOverflow": false,
+      "presentationOverflow": false
+    }
+  ],
+  "keyboardNavigation": "passed",
+  "imageZoomAndFocusReturn": "passed",
+  "pageErrors": [],
+  "remoteRequests": [],
+  "applicationTestsRerun": false
+}

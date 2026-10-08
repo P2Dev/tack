@@ -1,0 +1,43 @@
+{
+  "fixture": "Real six-card board; all issue API reads and writes intercepted in browser for probes; no persistent issue edits.",
+  "switchBeforeAutosave": {
+    "patchRequests": 0,
+    "newEditorTitle": "Decide where the pilot will live"
+  },
+  "archiveBeforeAutosave": {
+    "methods": [
+      "POST /api/issues/8a5d295b-7e56-4b47-9a72-434a3769264e/archive"
+    ],
+    "archivedTitle": "Make the first issue effortless to capture"
+  },
+  "archivedEscape": {
+    "dialogStillOpen": 1,
+    "focusBefore": "<body><div hidden=\"\"><!--$--><!--/$--></div><div class=\"app-shell\"><header class=\"app-header\"><div class=\"brand-block\"><"
+  },
+  "failedSave": {
+    "message": "Your changes couldn’t be saved. They are still in the editor.",
+    "closeRemainsOpen": 1,
+    "afterCopySaveState": " Saved"
+  },
+  "mobileFilterTab": {
+    "selected": "Backlog1",
+    "visibleHeading": "Backlog"
+  },
+  "invalidDeepLink": {
+    "url": "http://localhost:3105/?issue=TCK-999999",
+    "dialogs": 0,
+    "alerts": [
+      ""
+    ]
+  },
+  "mobileFocus": {
+    "inDialog": false,
+    "active": "<input id=\"quick-add-in_progress\" data-quick-add=\"in_progress\" maxlength=\"180\" placeholder=\"Add a card…\" autocomplete=\"off\" value=\"\">"
+  },
+  "axeBoard": [],
+  "axeLabels": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+  ]
+}

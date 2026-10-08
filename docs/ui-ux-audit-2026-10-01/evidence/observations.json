@@ -1,0 +1,355 @@
+{
+  "viewports": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "visibleColumns": [
+        {
+          "status": "backlog",
+          "cards": 3,
+          "y": 247.5
+        },
+        {
+          "status": "ready",
+          "cards": 1,
+          "y": 247.5
+        },
+        {
+          "status": "in_progress",
+          "cards": 0,
+          "y": 247.5
+        },
+        {
+          "status": "done",
+          "cards": 1,
+          "y": 247.5
+        }
+      ],
+      "sidebar": true,
+      "headerHeight": 70,
+      "firstCardY": 389
+    },
+    {
+      "width": 1280,
+      "overflow": false,
+      "visibleColumns": [
+        {
+          "status": "backlog",
+          "cards": 3,
+          "y": 297.5
+        },
+        {
+          "status": "ready",
+          "cards": 1,
+          "y": 297.5
+        },
+        {
+          "status": "in_progress",
+          "cards": 0,
+          "y": 297.5
+        },
+        {
+          "status": "done",
+          "cards": 1,
+          "y": 297.5
+        }
+      ],
+      "sidebar": true,
+      "headerHeight": 70,
+      "firstCardY": 439
+    },
+    {
+      "width": 1180,
+      "overflow": false,
+      "visibleColumns": [
+        {
+          "status": "backlog",
+          "cards": 3,
+          "y": 297.5
+        },
+        {
+          "status": "ready",
+          "cards": 1,
+          "y": 297.5
+        },
+        {
+          "status": "in_progress",
+          "cards": 0,
+          "y": 297.5
+        },
+        {
+          "status": "done",
+          "cards": 1,
+          "y": 297.5
+        }
+      ],
+      "sidebar": true,
+      "headerHeight": 70,
+      "firstCardY": 439
+    },
+    {
+      "width": 1179,
+      "overflow": false,
+      "visibleColumns": [
+        {
+          "status": "in_progress",
+          "cards": 0,
+          "y": 384.5
+        }
+      ],
+      "sidebar": true,
+      "headerHeight": 70,
+      "firstCardY": null
+    },
+    {
+      "width": 1101,
+      "overflow": false,
+      "visibleColumns": [
+        {
+          "status": "in_progress",
+          "cards": 0,
+          "y": 384.5
+        }
+      ],
+      "sidebar": true,
+      "headerHeight": 70,
+      "firstCardY": null
+    },
+    {
+      "width": 1100,
+      "overflow": false,
+      "visibleColumns": [
+        {
+          "status": "in_progress",
+          "cards": 0,
+          "y": 334.5
+        }
+      ],
+      "sidebar": false,
+      "headerHeight": 70,
+      "firstCardY": null
+    },
+    {
+      "width": 900,
+      "overflow": false,
+      "visibleColumns": [
+        {
+          "status": "in_progress",
+          "cards": 0,
+          "y": 334.5
+        }
+      ],
+      "sidebar": false,
+      "headerHeight": 70,
+      "firstCardY": null
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "visibleColumns": [
+        {
+          "status": "in_progress",
+          "cards": 0,
+          "y": 309.546875
+        }
+      ],
+      "sidebar": false,
+      "headerHeight": 66,
+      "firstCardY": null
+    },
+    {
+      "width": 320,
+      "overflow": false,
+      "visibleColumns": [
+        {
+          "status": "in_progress",
+          "cards": 0,
+          "y": 376.734375
+        }
+      ],
+      "sidebar": false,
+      "headerHeight": 66,
+      "firstCardY": null
+    }
+  ],
+  "axe": [
+    {
+      "name": "sign-in",
+      "violations": []
+    },
+    {
+      "name": "board-320",
+      "violations": []
+    },
+    {
+      "name": "navigation-mobile",
+      "violations": []
+    },
+    {
+      "name": "editor-mobile",
+      "violations": []
+    },
+    {
+      "name": "board-manager-mobile",
+      "violations": []
+    },
+    {
+      "name": "team-mobile",
+      "violations": []
+    }
+  ],
+  "observations": {
+    "boards": [
+      {
+        "id": "TCK",
+        "name": "Engineering board"
+      },
+      {
+        "id": "TST",
+        "name": "Test"
+      }
+    ],
+    "currentBoard": {
+      "id": "TCK",
+      "active": 5,
+      "archived": 0
+    },
+    "cards": [
+      {
+        "key": "TCK-2",
+        "boardId": "TCK",
+        "previousKeys": [],
+        "archived": false
+      },
+      {
+        "key": "TCK-4",
+        "boardId": "TCK",
+        "previousKeys": [],
+        "archived": false
+      },
+      {
+        "key": "TCK-6",
+        "boardId": "TCK",
+        "previousKeys": [],
+        "archived": false
+      },
+      {
+        "key": "TCK-3",
+        "boardId": "TCK",
+        "previousKeys": [],
+        "archived": false
+      },
+      {
+        "key": "TCK-5",
+        "boardId": "TCK",
+        "previousKeys": [],
+        "archived": false
+      },
+      {
+        "key": "TST-1",
+        "boardId": "TST",
+        "previousKeys": [
+          "TCK-1"
+        ],
+        "archived": false
+      },
+      {
+        "key": "TST-2",
+        "boardId": "TST",
+        "previousKeys": [],
+        "archived": false
+      }
+    ],
+    "crossBoardSearch": {
+      "searched": "TST-1",
+      "summary": "“TST-1”\n\n0 of 5 cards shown · Board loaded\n\nCopy view\nClear",
+      "cards": 0
+    },
+    "oldKeySearch": {
+      "searched": "TCK-1",
+      "current": "TST-1",
+      "summary": "“TCK-1”\n\n0 of 2 cards shown · Board loaded\n\nCopy view\nClear",
+      "cards": 0
+    },
+    "aliasLinkResolves": "http://localhost:3000/?issue=TST-1&board=TST",
+    "editor-1440": {
+      "#issue-title": {
+        "y": 234.5,
+        "bottom": 353,
+        "height": 118.5,
+        "withinViewport": true
+      },
+      "#issue-description": {
+        "y": 421.5,
+        "bottom": 560.96875,
+        "height": 139.46875,
+        "withinViewport": true
+      },
+      ".board-transfer": {
+        "y": 616.96875,
+        "bottom": 721.46875,
+        "height": 104.5,
+        "withinViewport": true
+      },
+      "#issue-status": {
+        "y": 769.96875,
+        "bottom": 813.96875,
+        "height": 44,
+        "withinViewport": true
+      },
+      "#issue-assignee": {
+        "y": 769.96875,
+        "bottom": 813.96875,
+        "height": 44,
+        "withinViewport": true
+      },
+      ".drawer-footer": {
+        "y": 774,
+        "bottom": 844,
+        "height": 70,
+        "withinViewport": true
+      }
+    },
+    "editor-390": {
+      "#issue-title": {
+        "y": 159.390625,
+        "bottom": 277.890625,
+        "height": 118.5,
+        "withinViewport": true
+      },
+      "#issue-description": {
+        "y": 346.390625,
+        "bottom": 485.859375,
+        "height": 139.46875,
+        "withinViewport": true
+      },
+      ".board-transfer": {
+        "y": 541.859375,
+        "bottom": 646.359375,
+        "height": 104.5,
+        "withinViewport": true
+      },
+      "#issue-status": {
+        "y": 694.859375,
+        "bottom": 738.859375,
+        "height": 44,
+        "withinViewport": true
+      },
+      "#issue-assignee": {
+        "y": 777.359375,
+        "bottom": 821.359375,
+        "height": 44,
+        "withinViewport": true
+      },
+      ".drawer-footer": {
+        "y": 769,
+        "bottom": 844,
+        "height": 75,
+        "withinViewport": true
+      }
+    },
+    "doubleTextOverflow": false,
+    "currentBoardUnchanged": true
+  },
+  "errors": []
+}
