@@ -35,6 +35,13 @@ export const pages = [
     group: "Use Tack",
   },
   {
+    source: "docs/CLOUD_PROJECT_SYNC.md",
+    slug: "cloud-project-sync",
+    title: "Cloud project sync",
+    description: "Import linked boards, provision a dedicated key, and recover safely.",
+    group: "Run Tack",
+  },
+  {
     source: "docs/CONFIGURATION.md",
     slug: "configuration",
     title: "Configuration",

@@ -11,6 +11,7 @@ Verified 2026-10-10 on branch `codex/cloud-project-sync`, starting from live-sou
 | TypeScript, including actual route types | Passed |
 | Default production build (Turbopack) | Passed; dedicated PUT route generated |
 | Additional webpack production build | Passed |
+| Documentation site build/link checks | Passed |
 | Whitespace validation | `git diff --check` passed |
 
 The database tests ran only against a new disposable local PostgreSQL 16 container, with isolated schemas. All test fixtures are synthetic. Builds/browser testing used an isolated source copy with no `.env`, avoiding the user's local private configuration. Browser acceptance used real synthetic session sign-in and the running Next.js server, exercising administrator-only UI, member session/API denial, dedicated key creation, create/replay response URLs and archived projections preserving browser-created cards. Accessibility checks reported no violations on the integration creation form.
