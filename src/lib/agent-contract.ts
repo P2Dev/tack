@@ -1,7 +1,9 @@
 import { z } from "zod";
 import { boardIdSchema } from "@/lib/validation";
 
-export const keyScopeSchema = z.enum(["read", "write", "archive", "transfer"]);
+export const keyScopeSchema = z.enum([
+  "read", "write", "archive", "transfer", "projects:sync",
+]);
 export type KeyScope = z.infer<typeof keyScopeSchema>;
 export const keyInputSchema = z
   .object({
@@ -12,13 +14,19 @@ export const keyInputSchema = z
       .max(4)
       .refine(
         (items) =>
-          items.includes("read") && new Set(items).size === items.length,
-        "Include read access and unique permissions.",
+          (items.includes("projects:sync")
+            ? items.length === 1
+            : items.includes("read")) && new Set(items).size === items.length,
+        "Choose Cloud project sync alone, or read access with unique card permissions.",
       ),
     boardIds: z.array(boardIdSchema).min(1).max(100).nullable(),
     days: z.union([z.literal(7), z.literal(30), z.literal(90)]).default(90),
   })
-  .strict();
+  .strict()
+  .refine(
+    data => !data.scopes.includes("projects:sync") || data.boardIds === null,
+    "Cloud project sync does not accept board restrictions.",
+  );
 export type AgentKeyView = {
   id: string;
   userId: string;

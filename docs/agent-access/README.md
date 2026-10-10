@@ -26,7 +26,7 @@ curl --fail-with-body \
   "$TACK_BASE_URL/api/v1/me"
 ```
 
-Use HTTPS for a LAN address. Keys go in `Authorization: Bearer …`, never query strings. Browser cookies do not authenticate the agent API. Keys cannot create keys, manage accounts/boards/labels, or export the workspace, including keys owned by administrators.
+Use HTTPS for a LAN address. Keys go in `Authorization: Bearer …`, never query strings. Browser cookies do not authenticate the agent API. Card keys cannot create keys, manage accounts/boards/labels, or export the workspace, including keys owned by administrators. Administrators can deliberately create an exclusive `projects:sync` key for [Cloud project board projection](../CLOUD_PROJECT_SYNC.md); it grants no card/read access and works only on the dedicated integration PUT endpoint.
 
 | Method | Path beneath `/api/v1` | Permission | Input |
 | --- | --- | --- | --- |

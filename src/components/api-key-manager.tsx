@@ -87,13 +87,14 @@ function KeyRow({
                 write: "Update cards",
                 archive: "Archive / restore",
                 transfer: "Transfer",
+                "projects:sync": "Cloud project sync",
               })[scope],
           )
           .join(", ")}
       </p>
       <p>
         Boards:{" "}
-        {item.boardIds?.join(", ") ?? "All boards, including future boards"}
+        {item.scopes.includes("projects:sync") ? "Cloud-linked projects only" : item.boardIds?.join(", ") ?? "All boards, including future boards"}
       </p>
       <dl className="key-dates">
         <div>
@@ -232,6 +233,7 @@ export function ApiKeyManager({
   const [allUsers, setAllUsers] = useState(false);
   const [name, setName] = useState("");
   const [write, setWrite] = useState(false);
+  const [projectsSync, setProjectsSync] = useState(false);
   const [archive, setArchive] = useState(false);
   const [transfer, setTransfer] = useState(false);
   const [allBoards, setAllBoards] = useState(false);
@@ -353,7 +355,7 @@ export function ApiKeyManager({
           <p>
             Set <code>TACK_BASE_URL</code> to <code>{baseUrl}</code> and{" "}
             <code>TACK_API_KEY</code> to this value. Your first connection check
-            is <code>GET /api/v1/me</code>.
+            for card keys is <code>GET /api/v1/me</code>. Cloud project sync keys use the dedicated project integration endpoint.
           </p>
         </section>
       ) : null}
@@ -368,7 +370,7 @@ export function ApiKeyManager({
               setError("");
               setExpired(false);
               setMessage("");
-              const scopes: KeyScope[] = [
+              const scopes: KeyScope[] = projectsSync ? ["projects:sync"] : [
                 "read",
                 ...(write ? ["write" as const] : []),
                 ...(archive ? ["archive" as const] : []),
@@ -380,7 +382,7 @@ export function ApiKeyManager({
                   body: JSON.stringify({
                     name,
                     scopes,
-                    boardIds: allBoards ? null : boardIds,
+                    boardIds: projectsSync || allBoards ? null : boardIds,
                     days,
                   }),
                 });
@@ -416,7 +418,12 @@ export function ApiKeyManager({
                 placeholder="Local coding agent"
               />
             </label>
-            <fieldset disabled={pending}>
+            {admin ? <label className="key-choice">
+              <input type="checkbox" checked={projectsSync} disabled={pending} onChange={event => setProjectsSync(event.target.checked)} />
+              Cloud project sync only
+            </label> : null}
+            {projectsSync ? <p>Creates and updates Cloud-linked boards. Cannot read or change cards. Access ends if your administrator role is removed.</p> : null}
+            <fieldset disabled={pending || projectsSync}>
               <legend>Access</legend>
               <label className="key-choice">
                 <input
@@ -447,7 +454,7 @@ export function ApiKeyManager({
                 Allow transfers between permitted boards
               </label>
             </fieldset>
-            <fieldset disabled={pending}>
+            <fieldset disabled={pending || projectsSync}>
               <legend>Boards</legend>
               <label className="key-choice">
                 <input
@@ -501,7 +508,7 @@ export function ApiKeyManager({
             <div className="recovery-actions">
               <button
                 className="primary-button"
-                disabled={pending || (!allBoards && !boardIds.length)}
+                disabled={pending || (!projectsSync && !allBoards && !boardIds.length)}
               >
                 {pending ? "Creating…" : "Generate key"}
               </button>
