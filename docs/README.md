@@ -9,6 +9,7 @@ these same guides with navigation and search.
 - [Setup](SETUP.md): Docker quick start, manual setup, ports, and first sign-in.
 - [User guide](USER_GUIDE.md): cards, filters, save/recovery, archive, and administration.
 - [Boards and keys](BOARDS.md): switching, transfers, permanent aliases, and board removal.
+- [Cloud project sync](CLOUD_PROJECT_SYNC.md): dedicated board projection API, explicit LNG/MNJ import, provisioning, rotation and rollback.
 - [Agent access](agent-access/README.md): self-service API keys, endpoint reference, MCP, and retry/conflict rules.
 
 ## Run Tack

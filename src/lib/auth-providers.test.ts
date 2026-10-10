@@ -3,6 +3,17 @@ import { providerConfig, readAuthProviders } from "@/lib/auth-providers";
 
 afterEach(() => vi.unstubAllGlobals());
 describe("provider configuration", () => {
+  it.each([true, "true"])("accepts verified email claim %s, including Cognito UserInfo", async email_verified => {
+    const config = providerConfig({ id: "cognito", name: "Pool", issuer: "https://identity.example", clientId: "id", allowSignUp: false });
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(new Response(JSON.stringify({ issuer: "https://identity.example", userinfo_endpoint: "https://identity.example/userinfo" }))).mockResolvedValueOnce(new Response(JSON.stringify({ sub: "person", email: "member@example.com", email_verified }))));
+    expect(await config.getUserInfo!({ accessToken: "access" })).toMatchObject({ emailVerified: true });
+  });
+  it.each([false, "false", "TRUE", "1", "true ", 1, null, undefined])("rejects unverified or malformed verification claim %s", async email_verified => {
+    const config = providerConfig({ id: "cognito", name: "Pool", issuer: "https://identity.example", clientId: "id", allowSignUp: false });
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(new Response(JSON.stringify({ issuer: "https://identity.example", userinfo_endpoint: "https://identity.example/userinfo" }))).mockResolvedValueOnce(new Response(JSON.stringify({ sub: "person", email: "member@example.com", email_verified }))));
+    expect(await config.getUserInfo!({ accessToken: "access" })).toBeNull();
+  });
+
   it("defaults to local and validates explicit providers without exposing credentials", () => {
     expect(readAuthProviders({})).toEqual({ providers: [], defaultProvider: "local" });
     const config = readAuthProviders({ COGNITO_ISSUER: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_pool", COGNITO_CLIENT_ID: "client", COGNITO_CLIENT_SECRET: "secret" });

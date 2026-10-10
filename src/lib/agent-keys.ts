@@ -22,46 +22,56 @@ export async function listAgentKeys(
 }
 export async function createAgentKey(userId: string, input: unknown) {
   const data = keyInputSchema.parse(input);
-  if (data.boardIds !== null) {
-    const boards = await getDatabase().query(
-      "SELECT id FROM boards WHERE removed_at IS NULL AND id=ANY($1::TEXT[])",
-      [data.boardIds],
+  return withTransaction(async client => {
+    const owner = await client.query(
+      'SELECT role FROM "user" WHERE id=$1 AND NOT banned FOR SHARE',
+      [userId],
     );
-    if (boards.rowCount !== new Set(data.boardIds).size)
-      throw new AgentError(400, "invalid_board", "Choose available boards.");
-  }
-  const count = await getDatabase().query(
-    "SELECT COUNT(*)::INT AS count FROM agent_keys WHERE user_id=$1 AND revoked_at IS NULL AND expires_at>NOW()",
-    [userId],
-  );
-  if (count.rows[0].count >= 50)
-    throw new AgentError(
-      400,
-      "key_limit",
-      "Revoke an unused key before creating another (50 active keys maximum).",
+    if (!owner.rows[0])
+      throw new AgentError(401, "invalid_credentials", "This account is no longer active.");
+    if (data.scopes.includes("projects:sync") && owner.rows[0].role !== "admin")
+      throw new AgentError(403, "forbidden", "Only administrators can provision Cloud project sync keys.");
+    if (data.boardIds !== null) {
+      const boards = await client.query(
+        "SELECT id FROM boards WHERE removed_at IS NULL AND id=ANY($1::TEXT[])",
+        [data.boardIds],
+      );
+      if (boards.rowCount !== new Set(data.boardIds).size)
+        throw new AgentError(400, "invalid_board", "Choose available boards.");
+    }
+    const count = await client.query(
+      "SELECT COUNT(*)::INT AS count FROM agent_keys WHERE user_id=$1 AND revoked_at IS NULL AND expires_at>NOW()",
+      [userId],
     );
-  const key = await auth.api.createApiKey({
-    body: { userId, name: data.name, expiresIn: data.days * 86400 },
+    if (count.rows[0].count >= 50)
+      throw new AgentError(
+        400,
+        "key_limit",
+        "Revoke an unused key before creating another (50 active keys maximum).",
+      );
+    const key = await auth.api.createApiKey({
+      body: { userId, name: data.name, expiresIn: data.days * 86400 },
+    });
+    try {
+      await client.query(
+        `INSERT INTO agent_keys(id,user_id,name,prefix,scopes,board_ids,expires_at)
+        VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+        [
+          key.id,
+          userId,
+          data.name,
+          key.key.slice(0, 12),
+          data.scopes,
+          data.boardIds,
+          key.expiresAt,
+        ],
+      );
+    } catch (error) {
+      await getDatabase().query("DELETE FROM apikey WHERE id=$1", [key.id]);
+      throw error;
+    }
+    return { id: key.id, secret: key.key };
   });
-  try {
-    await getDatabase().query(
-      `INSERT INTO agent_keys(id,user_id,name,prefix,scopes,board_ids,expires_at)
-      VALUES ($1,$2,$3,$4,$5,$6,$7)`,
-      [
-        key.id,
-        userId,
-        data.name,
-        key.key.slice(0, 12),
-        data.scopes,
-        data.boardIds,
-        key.expiresAt,
-      ],
-    );
-  } catch (error) {
-    await getDatabase().query("DELETE FROM apikey WHERE id=$1", [key.id]);
-    throw error;
-  }
-  return { id: key.id, secret: key.key };
 }
 export async function changeAgentKey(
   actor: { id: string; role: string },
@@ -124,12 +134,12 @@ export async function authenticateAgent(
     );
   }
   const record = await getDatabase().query(
-    `SELECT k.*, u.banned FROM agent_keys k JOIN "user" u ON u.id=k.user_id
+    `SELECT k.*, u.banned, u.role FROM agent_keys k JOIN "user" u ON u.id=k.user_id
     WHERE k.id=$1 AND k.user_id=$2 AND k.revoked_at IS NULL AND k.expires_at>NOW() AND NOT u.banned`,
     [result.key.id, result.key.referenceId],
   );
   const key = record.rows[0];
-  if (!key)
+  if (!key || (key.scopes.includes("projects:sync") && key.role !== "admin"))
     throw new AgentError(
       401,
       "invalid_credentials",

@@ -69,7 +69,9 @@ export function providerConfig(provider: IdentityProvider): GenericOAuthConfig {
         const response = await fetch(endpoint, { headers: { Authorization: `Bearer ${tokens.accessToken}` }, signal: AbortSignal.timeout(10_000), redirect: "error" });
         if (!response.ok) return null;
         const profile = await response.json();
-        if (typeof profile.sub !== "string" || !profile.sub || typeof profile.email !== "string" || !z.email().safeParse(profile.email).success || profile.email_verified !== true) return null;
+        // Cognito UserInfo uses strings for verification claims (AWS documented).
+        const emailVerified = profile.email_verified === true || profile.email_verified === "true";
+        if (typeof profile.sub !== "string" || !profile.sub || typeof profile.email !== "string" || !z.email().safeParse(profile.email).success || !emailVerified) return null;
         const name = typeof profile.name === "string" && profile.name.trim() ? profile.name.trim() : profile.email.split("@")[0];
         return { id: profile.sub, name, email: profile.email.toLowerCase(), emailVerified: true };
       } catch { return null; }
