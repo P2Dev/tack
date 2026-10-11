@@ -8,6 +8,8 @@ export default defineConfig([
   globalIgnores([
     ".next/**",
     ".site/**",
+    "artifacts/**",
+    "packages/tack-mcp/dist/**",
     "coverage/**",
     "playwright-report/**",
     "test-results/**"

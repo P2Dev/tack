@@ -14,3 +14,7 @@ backups
 .github
 !.env.example
 next-env.d.ts
+
+artifacts
+packages/tack-mcp/dist
+packages/tack-mcp/skills

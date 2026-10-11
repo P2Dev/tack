@@ -35,6 +35,13 @@ export const pages = [
     group: "Use Tack",
   },
   {
+    source: "docs/agent-access/CODEX.md",
+    slug: "codex",
+    title: "Codex and Tack",
+    description: "Install the local MCP server and Tack workflow skill.",
+    group: "Use Tack",
+  },
+  {
     source: "docs/CLOUD_PROJECT_SYNC.md",
     slug: "cloud-project-sync",
     title: "Cloud project sync",

@@ -55,7 +55,7 @@ and notifications to other tools.
 | Configure environment variables | [Configuration](docs/CONFIGURATION.md) |
 | Deploy, upgrade, back up, or restore | [Operations](docs/DEPLOYMENT.md) |
 | Configure Cognito or another identity provider | [Authentication](docs/AUTHENTICATION.md) |
-| Connect an agent or call the API | [API keys, HTTP API, and MCP](docs/agent-access/README.md) |
+| Connect Codex or call the API | [Codex setup and skill](docs/agent-access/CODEX.md) · [API reference](docs/agent-access/README.md) |
 | Work on the code | [Development](docs/DEVELOPMENT.md) and [Contributing](CONTRIBUTING.md) |
 | Resolve a setup or runtime problem | [Troubleshooting](docs/TROUBLESHOOTING.md) |
 

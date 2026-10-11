@@ -79,6 +79,8 @@ before committing. CI runs tests against its disposable PostgreSQL service.
 | `pnpm test` / `pnpm test:watch` | Unit/integration tests |
 | `pnpm test:e2e` | Desktop/mobile browser and real stdio MCP tests |
 | `pnpm mcp` | Optional local agent adapter |
+| `pnpm mcp:pack` | Build the standalone server/skill tarball in `artifacts/` |
+| `pnpm mcp:test` / `pnpm mcp:verify` | Client/config tests and offline artifact/protocol acceptance |
 | `pnpm docs:build` / `pnpm docs:check` | Build static docs and validate links |
 | `pnpm docs:preview` | Serve built docs locally on port 4173 |
 | `pnpm docs:verify` | Browser/layout/axe checks for the built project site |
@@ -89,7 +91,9 @@ before committing. CI runs tests against its disposable PostgreSQL service.
 - `src/components` and `src/hooks`: board, account tools, and draft/recovery behavior.
 - `src/lib`: auth, validation, store transactions, export, and agent contracts.
 - `migrations/postgres`: deployed schema; migrations at the root preserve the old SQLite prototype only.
-- `tools/tack-mcp.ts`: local stdio adapter with fixed-origin API calls.
+- `packages/tack-mcp`: standalone stdio server, fixed-origin API client, configuration, and focused tests.
+- `tools/tack-mcp.ts`: compatibility launcher using the package implementation.
+- `skills/tack`: workflow skill source, metadata, and recovery guidance bundled by the MCP build.
 - `tests/e2e`: authenticated browser and protocol integration checks.
 - `scripts`: migrations, bootstrap, backup, setup, and documentation build tools.
 - `site`: static project-site layout/style assets; guide content stays in Markdown.
@@ -99,3 +103,10 @@ See [architecture](../ARCHITECTURE.md), [decisions](../DECISIONS.md), and
 [contributing](../CONTRIBUTING.md) before changing auth, transactions, or public
 contracts. The [testing record](../TESTING.md) documents evidence and remaining
 live-provider/browser limitations.
+
+For MCP changes, run `pnpm mcp:test` and `pnpm mcp:verify`. To exercise the built
+artifact against the real API, set `MCP_TEST_ENTRY` to the absolute path of
+`packages/tack-mcp/dist/tack-mcp.cjs` when running `tests/e2e/agent-access.spec.ts`.
+CI uses that entry after building the package. The [Codex setup guide](agent-access/CODEX.md)
+and [delivery record](agent-access/MCP_SKILL_DELIVERY.md) distinguish protocol
+checks, actual client behavior, and persistent desktop/LAN setup.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tack"
+  short_description: "Work with Tack boards and cards through MCP"
+  default_prompt: "Use $tack to find and organize my Tack cards."

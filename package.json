@@ -25,7 +25,11 @@
     "docs:build": "node scripts/build-docs.mjs",
     "docs:check": "node scripts/check-docs.mjs",
     "docs:preview": "node scripts/serve-docs.mjs",
-    "docs:verify": "node scripts/verify-docs.mjs"
+    "docs:verify": "node scripts/verify-docs.mjs",
+    "mcp:build": "node scripts/build-mcp.mjs",
+    "mcp:pack": "node scripts/build-mcp.mjs && node scripts/pack-mcp.mjs",
+    "mcp:test": "node --import tsx --test packages/tack-mcp/test/*.test.ts",
+    "mcp:verify": "node scripts/build-mcp.mjs && node scripts/pack-mcp.mjs && node scripts/check-mcp-package.mjs"
   },
   "dependencies": {
     "@better-auth/api-key": "1.6.25",
@@ -49,6 +53,7 @@
     "@types/pg": "^8.20.0",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
+    "esbuild": "0.28.2",
     "eslint": "9.39.5",
     "eslint-config-next": "16.2.12",
     "remark-gfm": "4.0.1",

@@ -64,6 +64,8 @@ Errors have `{error: {code, message}, requestId}`. `X-Request-Id` is also presen
 
 ## Local MCP adapter
 
+For the self-contained package and companion Tack skill, follow [Codex setup](CODEX.md). The checkout launch below remains supported by the same server implementation.
+
 The adapter runs on the agent’s machine over stdio. It calls the same API and needs no database credentials. Install this workspace’s pinned dependencies with Node 24.9+ and pnpm 11.9+:
 
 ```sh

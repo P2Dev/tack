@@ -1,0 +1,10 @@
+{
+  "name": "@p2dev/tack-mcp",
+  "version": "1.1.0",
+  "description": "Local Tack MCP server and Codex workflow skill",
+  "license": "MIT",
+  "bin": { "tack-mcp": "dist/tack-mcp.cjs" },
+  "engines": { "node": ">=24.9.0" },
+  "files": ["dist/tack-mcp.cjs", "skills/", "LICENSE", "THIRD_PARTY_NOTICES.txt", "README.md"],
+  "repository": { "type": "git", "url": "https://github.com/P2Dev/tack.git", "directory": "packages/tack-mcp" }
+}

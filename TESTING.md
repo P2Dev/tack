@@ -2,6 +2,31 @@
 
 Date: 2026-07-27
 
+## Standalone MCP package and Codex skill — 2026-10-11
+
+- Six client/configuration tests passed; final artifact installation and real
+  stdio round trip passed offline with an empty npm cache, unrelated working
+  directory, spaces in paths, 11 tools, redacted diagnostics, and a
+  non-overwriting skill install.
+- All 98 integration tests on the current branch passed. Five focused
+  browser/API checks passed, with one intentional duplicate viewport case
+  skipped; they use the compiled package and cover replay, revisions,
+  archive/restore, transfers/old aliases, revocation, and visible persistence.
+- Actual Codex CLI acceptance loaded the installed skill and used the artifact
+  for read-only summaries, creation/editing/movement/transfer, a lost-response
+  replay without duplication, preservation of a concurrent edit, and requested
+  archive/restore. Client archive approval policy was exercised separately from
+  API scope; unattended acceptance used an explicit operator-approved tool policy.
+- Typecheck/lint, production build, skill validation, and 16 route/width
+  documentation axe checks passed. Test data used a separate disposable
+  PostgreSQL container; normal review data was not changed.
+- Persistent desktop configuration and separate-machine LAN HTTPS acceptance
+  are outstanding deployment checks, not implied by these local results.
+
+See [delivery evidence](docs/agent-access/MCP_SKILL_DELIVERY.md) and
+[Codex setup](docs/agent-access/CODEX.md). `pnpm mcp:test` and `pnpm mcp:verify`
+reproduce the focused package checks without a team database.
+
 ## Public project site and setup — 2026-10-08
 
 Typecheck/lint and 38 integration checks passed. A clean temporary Docker installation verified generated administrator sign-in, empty board, card creation, health, private/non-overwritten configuration, and the production build. Static checks cover 17 pages and 494 references; 12 route/width axe checks plus keyboard installation, search, guide navigation, enlarged text, and forced-color/reduced-motion inspection passed. Screenshots use disposable data. See [delivery evidence](docs/releases/2026-10-08-project-site.md). The Pages deployment and live HTTPS navigation/search/axe checks passed. Initial application CI exposed a pre-hydration status selection and a duplicate-title archive assertion; both were corrected. Eight focused browser checks passed, with two intentional viewport duplicates skipped, including delayed-script hydration acceptance on desktop/mobile. The [CI workflow](https://github.com/P2Dev/tack/actions/workflows/ci.yml) records full commit-specific verification.

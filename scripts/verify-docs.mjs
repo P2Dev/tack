@@ -14,7 +14,7 @@ await mkdir(".site/verification", { recursive: true });
 try {
   for (const width of [1440, 900, 390, 320]) {
     await page.setViewportSize({ width, height: 1000 });
-    for (const route of ["/", "/setup/", "/agents/"]) {
+    for (const route of ["/", "/setup/", "/agents/", "/codex/"]) {
       await page.goto(base + route);
       await expect(page.locator("h1")).toHaveCount(1);
       const layout = await page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth, elements: [...document.querySelectorAll("body *")].filter(element => element.getBoundingClientRect().right > innerWidth + 1).slice(0, 8).map(element => ({tag:element.tagName,className:element.className,width:element.getBoundingClientRect().width})) }));
@@ -94,7 +94,7 @@ try {
   ).toBe(true);
   expect(errors).toEqual([]);
   console.log(
-    "Project site passed 12 route/width axe checks, search/navigation, keyboard menu, enlarged-text reflow, and page-error checks.",
+    "Project site passed 16 route/width axe checks, search/navigation, keyboard menu, enlarged-text reflow, and page-error checks.",
   );
 } finally {
   await browser.close();

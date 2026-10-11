@@ -10,6 +10,7 @@ these same guides with navigation and search.
 - [User guide](USER_GUIDE.md): cards, filters, save/recovery, archive, and administration.
 - [Boards and keys](BOARDS.md): switching, transfers, permanent aliases, and board removal.
 - [Cloud project sync](CLOUD_PROJECT_SYNC.md): dedicated board projection API, explicit LNG/MNJ import, provisioning, rotation and rollback.
+- [Codex and Tack MCP](agent-access/CODEX.md): install the standalone server and workflow skill, configure credentials, and verify the connection.
 - [Agent access](agent-access/README.md): self-service API keys, endpoint reference, MCP, and retry/conflict rules.
 
 ## Run Tack
@@ -32,6 +33,8 @@ these same guides with navigation and search.
 
 These preserve delivery history and evidence; use the guides above for current setup.
 
+- [Codex MCP server and Tack skill plan](agent-access/MCP_SKILL_PLAN.md).
+- [Codex MCP package and skill delivery](agent-access/MCP_SKILL_DELIVERY.md).
 - [Public project-site release](releases/2026-10-08-project-site.md).
 - [Roadmap and delivery state](../ROADMAP.md).
 - [Verification history](../TESTING.md) and [launch/pilot runbook](../PILOT.md).

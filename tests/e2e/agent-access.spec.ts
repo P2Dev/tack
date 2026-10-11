@@ -226,7 +226,7 @@ test("HTTP mutations and the real stdio MCP adapter share revision and retry gua
   const client = new Client({ name: "tack-test", version: "1.0.0" });
   const transport = new StdioClientTransport({
     command: process.execPath,
-    args: ["--import", "tsx", resolve("tools/tack-mcp.ts")],
+    args: process.env.MCP_TEST_ENTRY ? [process.env.MCP_TEST_ENTRY] : ["--import", "tsx", resolve("tools/tack-mcp.ts")],
     cwd: process.cwd(),
     env: {
       ...Object.fromEntries(
@@ -242,6 +242,7 @@ test("HTTP mutations and the real stdio MCP adapter share revision and retry gua
   try {
     await client.connect(transport);
     expect((await client.listTools()).tools).toHaveLength(11);
+    expect(client.getInstructions()).toContain("stable ID");
     const first = await client.callTool({
       name: "tack_create_card",
       arguments: {
@@ -270,6 +271,9 @@ test("HTTP mutations and the real stdio MCP adapter share revision and retry gua
       }),
     );
     expect(retried.id).toBe(card.id);
+    expect(retried._transport).toMatchObject({ replayed: true, operationId: "mcp-create-retry", httpStatus: 201 });
+    expect((await client.callTool({name:"tack_cards",arguments:{board:"TCK",limit:1}})).isError).not.toBe(true);
+    expect((await client.callTool({name:"tack_board_metadata",arguments:{boardId:"TCK"}})).isError).not.toBe(true);
     const updated = parse(
       await client.callTool({
         name: "tack_update_card",
@@ -325,6 +329,16 @@ test("HTTP mutations and the real stdio MCP adapter share revision and retry gua
       },
     });
     expect(parse(archived).archivedAt).toBeTruthy();
+    const restored = parse(await client.callTool({ name: "tack_restore_card", arguments: { id: card.id, revision: parse(archived).revision, requestId: "mcp-restore-one" } }));
+    expect(restored.archivedAt).toBeNull();
+    const destination = `MP${Date.now().toString(36).slice(-6).toUpperCase()}`;
+    expect((await page.request.post("/api/boards", {data:{id:destination,name:"MCP destination"}})).status()).toBe(201);
+    const transferred = parse(await client.callTool({name:"tack_transfer_card",arguments:{id:card.id,revision:restored.revision,fromBoardId:"TCK",boardId:destination,requestId:"mcp-transfer-one"}}));
+    expect(transferred.id).toBe(card.id);
+    expect(transferred.key).toBe(`${destination}-1`);
+    expect(parse(await client.callTool({name:"tack_card",arguments:{id:card.key}})).key).toBe(transferred.key);
+    await page.goto(transferred.url);
+    await expect(page.getByLabel("Title",{exact:true})).toHaveValue("MCP edited");
     await page.request.delete(`/api/keys/${key.id}`, {
       headers: { Origin: origin },
     });

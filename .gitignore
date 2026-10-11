@@ -29,3 +29,10 @@ backups/
 # generated project site
 .site/
 next-env.d.ts
+
+# generated MCP release artifacts
+artifacts/
+packages/tack-mcp/dist/
+packages/tack-mcp/skills/
+packages/tack-mcp/LICENSE
+packages/tack-mcp/THIRD_PARTY_NOTICES.txt

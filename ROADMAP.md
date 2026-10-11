@@ -1,3 +1,25 @@
+# Delivered locally — Codex MCP server and Tack skill
+
+2026-10-11: implemented the standalone `@p2dev/tack-mcp` 1.1.0 package, bundled
+`$tack` workflow skill, private-file configuration, read-only diagnostics,
+non-overwriting skill installation, distinct transport metadata, Codex setup
+guide, and CI package verification/artifact upload. The 11 tool contracts and
+checkout compatibility launcher are preserved. [Delivery record](docs/agent-access/MCP_SKILL_DELIVERY.md)
+and [approved plan](docs/agent-access/MCP_SKILL_PLAN.md).
+
+Verification includes offline installation from an empty cache, six focused
+client/config tests, 98 current-branch integration tests, five focused browser/API
+checks (one intentional skip), actual Codex CLI skill workflows and recovery,
+typecheck/lint, production build, and responsive documentation checks.
+
+No further implementation is required for the package/skill delivery. Persistent
+desktop setup awaits the user's intended Tack instance and private credential;
+its acceptance and separate-machine LAN HTTPS acceptance remain explicitly
+unverified. Registry/marketplace publication and a central HTTP MCP service are
+outside this target.
+
+---
+
 # Published — Public project site and documentation
 
 2026-10-08: published [Tack’s project site](https://p2dev.github.io/tack/), simplified README/setup, completed task-oriented guides, and added contribution and CI/Pages workflows. Local checks passed: 38 integration tests, clean Docker quick start, typecheck/lint, 494 static references, responsive/keyboard/axe site checks, and live HTTPS/navigation/search acceptance. Publication CI exposed an early-hydration status-control defect and a duplicate-title test assertion; both were corrected and eight focused browser checks passed (two intentional viewport skips). [Delivery record](docs/releases/2026-10-08-project-site.md) and [application CI results](https://github.com/P2Dev/tack/actions/workflows/ci.yml).

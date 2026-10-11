@@ -44,7 +44,7 @@ pnpm exec playwright install chromium
 pnpm docs:verify
 ```
 
-This starts its own loopback server, checks the home/setup/API pages at four
+This starts its own loopback server, checks the home/setup/API/Codex pages at four
 widths, runs axe, exercises search and keyboard/mobile navigation, checks enlarged
 text, and captures ignored screenshots under `.site/verification/`.
 Inspect those screenshots when changing layout. Automated accessibility checks do
