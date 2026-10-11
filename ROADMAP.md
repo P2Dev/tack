@@ -12,11 +12,14 @@ client/config tests, 98 current-branch integration tests, five focused browser/A
 checks (one intentional skip), actual Codex CLI skill workflows and recovery,
 typecheck/lint, production build, and responsive documentation checks.
 
-No further implementation is required for the package/skill delivery. Persistent
-desktop setup awaits the user's intended Tack instance and private credential;
-its acceptance and separate-machine LAN HTTPS acceptance remain explicitly
-unverified. Registry/marketplace publication and a central HTTP MCP service are
-outside this target.
+No further implementation is required for the package/skill delivery. The user
+selected the local review copy; its persistent `tack` connection and user skill
+are installed. A fresh Codex CLI session verified read-only access to TCK/TST
+and unchanged card data. The dedicated key expires January 9, 2027. Unrelated
+Codex settings were preserved. Desktop UI refresh/discovery was not observed;
+start a fresh chat and restart the app if needed. Separate-machine LAN HTTPS
+acceptance, registry/marketplace publication, and a central HTTP MCP service
+remain outside this local installation target.
 
 ---
 

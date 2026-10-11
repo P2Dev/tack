@@ -20,8 +20,12 @@ Date: 2026-07-27
 - Typecheck/lint, production build, skill validation, and 16 route/width
   documentation axe checks passed. Test data used a separate disposable
   PostgreSQL container; normal review data was not changed.
-- Persistent desktop configuration and separate-machine LAN HTTPS acceptance
-  are outstanding deployment checks, not implied by these local results.
+- Follow-up persistent setup for `http://localhost:3000`: installed server/user
+  skill, private credential file, and the shared Codex MCP configuration. Fresh
+  actual CLI verified read-only TCK/TST access and matching before/after
+  active/archive card snapshots. Unrelated settings were preserved. Desktop
+  visual discovery/refresh could not be inspected because computer use blocks
+  the Codex app; separate-machine LAN HTTPS acceptance remains outstanding.
 
 See [delivery evidence](docs/agent-access/MCP_SKILL_DELIVERY.md) and
 [Codex setup](docs/agent-access/CODEX.md). `pnpm mcp:test` and `pnpm mcp:verify`

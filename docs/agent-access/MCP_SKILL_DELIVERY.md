@@ -72,4 +72,29 @@ screen-reader conformance claim.
 
 This delivery provides a local stdio server and a portable skill. It does not create a central HTTP MCP service or use the separate Cloud project-sync credential. The existing Tack API remains the authorization and transaction boundary; no database migration was needed.
 
-Persistent desktop connection setup requires the user's intended Tack instance and private credential. A separate-machine LAN acceptance run must verify the actual DNS name, HTTPS certificate trust, permissions, and client connection. Loopback tests do not establish those deployment properties. Other MCP clients can use the protocol, but only the verified client/platform is claimed here.
+## Persistent local review installation
+
+The user selected `http://localhost:3000`. Installed the offline package at
+`~/.local/share/tack-agent`, the user skill at `~/.agents/skills/tack`, and a
+private credential file at `~/.config/tack/local-review.env` (mode 600).
+The dedicated **Codex local review** key grants only `read` for the current
+TCK/TST boards and expires January 9, 2027. Its secret is outside Git and was
+never printed. It can be inspected/revoked through Tack's API keys page.
+
+Registered `tack` in the shared Codex user configuration using absolute Node and
+installed executable paths. Every unrelated configuration field was compared
+and preserved. A fresh actual CLI session loaded the user skill and persisted
+connection, authenticated with exactly the read scope, and reported 5 active
+cards on TCK and 2 on TST. Independent paginated active/archive card snapshots
+before/after matched. Only the requested key-management records were added.
+
+Desktop visual inspection is unavailable because the computer-use tool blocks
+access to the Codex app. The configuration is installed and verified through
+the CLI; desktop UI refresh/discovery was not observed. Start a fresh Codex chat,
+and restart the app if Tack is not yet listed. Try “Use $tack to summarize TCK.”
+
+A separate-machine LAN acceptance run must verify the actual DNS name, HTTPS
+certificate trust, permissions, and client connection. Loopback tests do not
+establish those deployment properties. Other MCP clients can use the protocol,
+but only the verified client/platform is claimed here. No further work is
+required for the requested persistent local connection installation.

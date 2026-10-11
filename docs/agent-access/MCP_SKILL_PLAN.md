@@ -3,10 +3,11 @@
 October 11, 2026 · Authorized and implemented; see [delivery evidence](MCP_SKILL_DELIVERY.md)
 
 Milestones 1 and 2 are delivered as the standalone package and bundled skill.
-Milestone 3 has a maintained guide and actual Codex CLI acceptance. Persistent
-desktop configuration awaits the intended instance; separate-machine LAN
-acceptance remains a deployment check. The original design below records the
-approved scope rather than new work to start.
+Milestone 3 has a maintained guide and actual Codex CLI acceptance. The selected
+local review instance now has a persistent read-only connection and installed
+user skill, verified in a fresh CLI session. Desktop UI refresh/discovery was
+not observed; separate-machine LAN acceptance remains a deployment check. The
+original design below records the approved scope rather than new work to start.
 
 ## Outcome and selected direction
 
@@ -110,7 +111,7 @@ A central Streamable HTTP endpoint, OAuth for agent clients, automatic project p
 The authorized implementation is delivered locally. Use the [Codex guide](CODEX.md)
 to install and connect the package; [delivery evidence](MCP_SKILL_DELIVERY.md)
 records portability, actual client behavior, permissions, recovery, and the
-remaining desktop/LAN configuration. No registry publication or additional
+desktop UI verification and LAN acceptance limits. No registry publication or additional
 server architecture is required for this package delivery.
 
 ## Sources
