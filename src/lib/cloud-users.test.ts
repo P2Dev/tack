@@ -21,6 +21,9 @@ beforeAll(async () => {
   process.env.COGNITO_ISSUER = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_test";
   process.env.COGNITO_CLIENT_ID = "test-client";
   process.env.TACK_COGNITO_MANAGED_USERS = "true";
+  process.env.COGNITO_ALLOW_SIGN_UP = "true";
+  process.env.BETTER_AUTH_URL = "http://localhost:3000";
+  process.env.BETTER_AUTH_SECRET = "cloud-user-tests-longer-than-thirty-two";
   syncCloudUser = (await import("@/lib/cloud-users")).syncCloudUser;
 });
 
@@ -50,5 +53,14 @@ describe("managed Cloud users", () => {
   it("rejects mismatched subjects and email takeover", async () => {
     await expect(syncCloudUser(token("other-sub", ["Admin"]), profile)).rejects.toThrow(/subject/);
     await expect(syncCloudUser(token("other-sub", ["User"]), { ...profile, sub: "other-sub" })).rejects.toThrow(/different Cognito subject/);
+  });
+
+  it("closes local sign-in and account-management endpoints", async () => {
+    const { auth } = await import("@/lib/auth");
+    const request = (path: string) => auth.handler(new Request(`http://localhost:3000/api/auth${path}`, {
+      method: "POST", headers: { "Content-Type": "application/json", Origin: "http://localhost:3000" }, body: "{}"
+    }));
+    expect((await request("/sign-in/email")).status).toBe(403);
+    expect((await request("/admin/create-user")).status).toBe(403);
   });
 });
