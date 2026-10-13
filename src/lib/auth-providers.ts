@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { GenericOAuthConfig } from "better-auth/plugins/generic-oauth";
+import { isVerifiedEmailClaim, normalizeCloudEmail } from "@p2dev/common/users";
 import { cloudManagedUsers, syncCloudUser } from "@/lib/cloud-users";
 
 const providerSchema = z.object({
@@ -71,10 +72,10 @@ export function providerConfig(provider: IdentityProvider): GenericOAuthConfig {
         if (!response.ok) return null;
         const profile = await response.json();
         // Cognito UserInfo uses strings for verification claims (AWS documented).
-        const emailVerified = profile.email_verified === true || profile.email_verified === "true";
+        const emailVerified = isVerifiedEmailClaim(profile.email_verified, { allowString: true });
         if (typeof profile.sub !== "string" || !profile.sub || typeof profile.email !== "string" || !z.email().safeParse(profile.email).success || !emailVerified) return null;
         const name = typeof profile.name === "string" && profile.name.trim() ? profile.name.trim() : profile.email.split("@")[0];
-        const email = profile.email.toLowerCase();
+        const email = normalizeCloudEmail(profile.email);
         if (provider.id === "cognito" && cloudManagedUsers) await syncCloudUser(tokens.accessToken, { sub: profile.sub, email, name });
         return { id: profile.sub, name, email, emailVerified: true };
       } catch { return null; }

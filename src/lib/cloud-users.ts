@@ -1,5 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { CognitoJwtVerifier } from "aws-jwt-verify";
+import { appRoleForGroups } from "@p2dev/common/roles";
+import { verifiedCognitoAccess } from "@p2dev/common/auth";
 import { getDatabase, withTransaction } from "@/lib/database";
 
 export const cloudManagedUsers = process.env.TACK_COGNITO_MANAGED_USERS === "true";
@@ -13,9 +15,8 @@ const verifier = cloudManagedUsers ? CognitoJwtVerifier.create({ userPoolId: poo
 
 export async function syncCloudUser(accessToken: string, profile: { sub: string; email: string; name: string }) {
   if (!verifier) return;
-  const claims = await verifier.verify(accessToken);
-  if (claims.sub !== profile.sub) throw new Error("Cognito UserInfo subject does not match the verified access token.");
-  const role = Array.isArray(claims["cognito:groups"]) && claims["cognito:groups"].includes("Admin") ? "admin" : "user";
+  const identity = await verifiedCognitoAccess(verifier, accessToken, profile.sub);
+  const role = appRoleForGroups(identity.groups);
   const email = profile.email.toLowerCase();
   await withTransaction(async client => {
     await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [profile.sub]);

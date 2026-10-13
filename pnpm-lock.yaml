@@ -23,6 +23,9 @@ importers:
       '@modelcontextprotocol/sdk':
         specifier: 1.32.0
         version: 1.32.0(supports-color@7.2.0)(zod@4.4.3)
+      '@p2dev/common':
+        specifier: https://codeload.github.com/P2Dev/p2dev-common/tar.gz/89aef0468246bd60a321f010a1736a06cd0fa95d
+        version: https://codeload.github.com/P2Dev/p2dev-common/tar.gz/89aef0468246bd60a321f010a1736a06cd0fa95d
       aws-jwt-verify:
         specifier: 5.1.0
         version: 5.1.0
@@ -785,6 +788,11 @@ packages:
 
   '@oxc-project/types@0.139.0':
     resolution: {integrity: sha512-r9gHphtCs+1M7J0pw6Sn/hh/Wpa/iQrOOkrNAlVLF/gHq+/CJmHIWKKUUhdWjcD6CIa8idarspCsASiXCXvFUw==}
+
+  '@p2dev/common@https://codeload.github.com/P2Dev/p2dev-common/tar.gz/89aef0468246bd60a321f010a1736a06cd0fa95d':
+    resolution: {integrity: sha512-QJAMmSSxdgw56tqrD4+7dyBgFJ99BpX5LCmP8ldJAaSODP0oZYZZt+V3gfAl3PkBqKRW2aAL0xDguXRIU2t0VA==, tarball: https://codeload.github.com/P2Dev/p2dev-common/tar.gz/89aef0468246bd60a321f010a1736a06cd0fa95d}
+    version: 0.1.0
+    engines: {node: '>=24'}
 
   '@playwright/test@1.62.0':
     resolution: {integrity: sha512-9zOJ6ZQRAena31MpOH9VSzIz8Ou3YJ/wtY/eQm5T2uhfhG7/U3COrMS8xOtUrZrp9OgdmzEnIYODye3nY1VqzA==}
@@ -3803,6 +3811,8 @@ snapshots:
   '@opentelemetry/semantic-conventions@1.43.0': {}
 
   '@oxc-project/types@0.139.0': {}
+
+  '@p2dev/common@https://codeload.github.com/P2Dev/p2dev-common/tar.gz/89aef0468246bd60a321f010a1736a06cd0fa95d': {}
 
   '@playwright/test@1.62.0':
     dependencies:
