@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-p2-theme={process.env.TACK_THEME === "cloud" ? "cloud" : undefined}>
       <body>{children}</body>
     </html>
   );

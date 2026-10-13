@@ -33,7 +33,7 @@
     "@dnd-kit/sortable": "10.0.0",
     "@dnd-kit/utilities": "3.2.2",
     "@modelcontextprotocol/sdk": "1.32.0",
-    "@p2dev/common": "https://codeload.github.com/P2Dev/p2dev-common/tar.gz/89aef0468246bd60a321f010a1736a06cd0fa95d",
+    "@p2dev/common": "https://codeload.github.com/P2Dev/p2dev-common/tar.gz/133418c34c5bfbf3c9a7b707353d8fc836045743",
     "aws-jwt-verify": "5.1.0",
     "better-auth": "^1.6.25",
     "lucide-react": "1.27.0",
