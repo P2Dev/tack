@@ -1,5 +1,7 @@
 # Tack
 
+Shared P2.Dev group, identity and theme primitives come from a pinned `@p2dev/common` revision. Tack still runs standalone with local accounts and any configured OIDC provider; `TACK_COGNITO_MANAGED_USERS=true` is an opt-in Cloud deployment setting. The common package does not replace Tack sessions, database users, board permissions or recovery procedures.
+
 **A shared issue board that starts with a title.**
 
 Tack is a self-hosted issue tracker for small development teams. Capture a card,
