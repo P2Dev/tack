@@ -29,6 +29,40 @@
   --font-ui: var(--p2-font-ui);
   --font-display: Iowan Old Style, Baskerville, "Times New Roman", serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --header-surface: rgba(255, 253, 248, 0.96);
+  --toolbar-surface: rgba(255, 253, 248, 0.72);
+  --column-surface: rgba(247, 243, 235, 0.74);
+  --grid-line: rgba(36, 35, 31, 0.035);
+  --focus-soft: rgba(36, 88, 202, 0.12);
+}
+
+html[data-p2-theme="cloud"] {
+  --canvas: var(--p2-cloud-canvas);
+  --canvas-strong: var(--p2-cloud-canvas-strong);
+  --surface: var(--p2-cloud-surface);
+  --surface-raised: var(--p2-cloud-surface);
+  --surface-muted: var(--p2-cloud-surface-muted);
+  --ink: var(--p2-cloud-text);
+  --ink-secondary: var(--p2-cloud-text-secondary);
+  --ink-muted: var(--p2-cloud-muted);
+  --border-subtle: var(--p2-cloud-border);
+  --border: var(--p2-cloud-border);
+  --border-strong: var(--p2-cloud-border-strong);
+  --accent: var(--p2-cloud-primary);
+  --accent-hover: var(--p2-cloud-primary-hover);
+  --accent-soft: var(--p2-cloud-primary-soft);
+  --focus: var(--p2-cloud-focus);
+  --success: var(--p2-cloud-success);
+  --success-soft: var(--p2-cloud-success-soft);
+  --danger: var(--p2-cloud-danger);
+  --danger-soft: var(--p2-cloud-danger-soft);
+  --header-surface: rgb(255 255 255 / 96%);
+  --toolbar-surface: rgb(255 255 255 / 76%);
+  --column-surface: rgb(248 250 247 / 82%);
+  --grid-line: rgb(23 62 52 / 4%);
+  --focus-soft: var(--p2-cloud-focus-soft);
+  --shadow-card: 0 1px 0 rgb(23 62 52 / 8%), 0 5px 14px rgb(23 62 52 / 5%);
+  --shadow-drawer: -16px 0 45px rgb(23 62 52 / 16%);
 }
 
 * {
@@ -112,7 +146,7 @@ button {
   min-height: 70px;
   padding: 10px clamp(16px, 3vw, 38px);
   border-bottom: 1px solid var(--border);
-  background: rgba(255, 253, 248, 0.96);
+  background: var(--header-surface);
 }
 
 .brand-block,
@@ -132,18 +166,18 @@ button {
   width: 38px;
   height: 38px;
   place-items: center;
-  border: 1px solid #8f3321;
+  border: 1px solid var(--accent-hover);
   border-radius: 50% 50% 50% 7px;
   background: var(--accent);
   transform: rotate(-5deg);
-  box-shadow: 2px 2px 0 #e4c8bc;
+  box-shadow: 2px 2px 0 var(--accent-soft);
 }
 
 .brand-mark span {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #fff7ed;
+  background: var(--surface);
   box-shadow: inset 0 0 0 1px rgba(36, 35, 31, 0.12);
 }
 
@@ -337,7 +371,7 @@ button {
   padding: 11px 12px 9px;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
-  background: rgba(255, 253, 248, 0.72);
+  background: var(--toolbar-surface);
 }
 
 .search-control {
@@ -355,7 +389,7 @@ button {
 
 .search-control:focus-within {
   border-color: var(--focus);
-  box-shadow: 0 0 0 2px rgba(36, 88, 202, 0.12);
+  box-shadow: 0 0 0 2px var(--focus-soft);
 }
 
 .search-control input {
@@ -508,7 +542,7 @@ button {
   border: 1px solid var(--border-subtle);
   border-top: 3px solid var(--column-color);
   border-radius: var(--radius);
-  background: rgba(247, 243, 235, 0.74);
+  background: var(--column-surface);
   transition:
     background-color 140ms ease,
     border-color 140ms ease;
@@ -861,7 +895,7 @@ button {
 .quick-add:focus-within {
   border-color: var(--border);
   background: var(--surface);
-  box-shadow: 0 0 0 3px rgba(36, 88, 202, 0.12);
+  box-shadow: 0 0 0 3px var(--focus-soft);
 }
 
 .quick-add input {
@@ -1530,8 +1564,8 @@ button {
   gap: 14px;
   padding: 24px 18px;
   background:
-    linear-gradient(rgba(36, 35, 31, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(36, 35, 31, 0.035) 1px, transparent 1px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
     var(--canvas);
   background-size: 28px 28px;
 }
