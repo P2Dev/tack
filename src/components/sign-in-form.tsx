@@ -8,9 +8,9 @@ import type { PublicIdentityProvider } from "@/lib/auth-providers";
 import { signInPath } from "@/lib/return-path";
 import { authClient } from "@/lib/auth-client";
 
-export function SignInForm({ returnTo = "/", providers = [], defaultProvider = "local", providerError = false }: { returnTo?: string; providers?: PublicIdentityProvider[]; defaultProvider?: string; providerError?: boolean }) {
+export function SignInForm({ returnTo = "/", providers = [], defaultProvider = "local", providerError = false, cloudManagedUsers = false }: { returnTo?: string; providers?: PublicIdentityProvider[]; defaultProvider?: string; providerError?: boolean; cloudManagedUsers?: boolean }) {
   const router = useRouter();
-  const [error, setError] = useState(providerError ? "Provider sign-in did not complete. Try again, use a local account, or ask your Tack administrator to check access." : "");
+  const [error, setError] = useState(providerError ? cloudManagedUsers ? "Cloud sign-in did not complete. Check that your email is verified or contact your Cloud administrator." : "Provider sign-in did not complete. Try again, use a local account, or ask your Tack administrator to check access." : "");
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -45,16 +45,16 @@ export function SignInForm({ returnTo = "/", providers = [], defaultProvider = "
       setSubmitting(true); setError("");
       try {
         const result = await authClient.signIn.oauth2({ providerId: provider.id, callbackURL: returnTo, errorCallbackURL: `${signInPath(returnTo)}${signInPath(returnTo).includes("?") ? "&" : "?"}providerError=1` });
-        if (result.error) { setError("Provider sign-in is unavailable. Try again or use your local account."); setSubmitting(false); }
-      } catch { setError("Could not reach sign-in. Try again or use your local account."); setSubmitting(false); }
+        if (result.error) { setError(cloudManagedUsers ? "Cloud sign-in is unavailable. Try again." : "Provider sign-in is unavailable. Try again or use your local account."); setSubmitting(false); }
+      } catch { setError(cloudManagedUsers ? "Could not reach Cloud sign-in. Try again." : "Could not reach sign-in. Try again or use your local account."); setSubmitting(false); }
     }}>Continue with {provider.name}</button>)}
   </div> : null;
 
   return (
     <>
     {defaultProvider !== "local" ? providerButtons : null}
-    {providers.length ? <h2 className="local-sign-in-heading">Local account</h2> : null}
-    <form className="auth-form" onSubmit={handleSubmit}>
+    {!cloudManagedUsers && providers.length ? <h2 className="local-sign-in-heading">Local account</h2> : null}
+    {!cloudManagedUsers ? <form className="auth-form" onSubmit={handleSubmit}>
       <label>
         <span>Email</span>
         <input
@@ -85,7 +85,7 @@ export function SignInForm({ returnTo = "/", providers = [], defaultProvider = "
         {submitting ? "Signing in…" : "Open the board"}
         {!submitting ? <ArrowRight aria-hidden="true" size={17} /> : null}
       </button>
-    </form>
+    </form> : error ? <p className="form-error" role="alert">{error}</p> : null}
     {defaultProvider === "local" ? providerButtons : null}
     </>
   );
