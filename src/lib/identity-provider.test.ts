@@ -101,6 +101,17 @@ describe("OIDC authorization-code integration", () => {
     expect(created.headers.get("location")).toContain("board=ENG");
     expect((await pool.query('SELECT role, initials, color FROM "user" WHERE email = $1', [profile.email])).rows[0]).toMatchObject({ role: "user", initials: expect.any(String), color: "slate" });
   });
+  it("links a pre-provisioned verified user and keeps its role", async () => {
+    profile = { sub: "pre-provisioned", email: "pre-provisioned@example.com", name: "Cloud administrator", email_verified: true };
+    await pool.query('INSERT INTO "user" (id,name,email,"emailVerified","createdAt","updatedAt",role,banned,initials,color) VALUES ($1,$2,$3,TRUE,NOW(),NOW(),$4,FALSE,$5,$6)', ["cloud-admin", profile.name, profile.email, "admin", "CA", "slate"]);
+    const { response } = await flow("pool");
+    expect(response.headers.get("location")).toContain("board=ENG");
+    const cookie = response.headers.getSetCookie().map(value => value.split(";")[0]).join("; ");
+    const session = await auth.api.getSession({ headers: new Headers({ Cookie: cookie }) });
+    expect(session?.user.id).toBe("cloud-admin");
+    expect(session?.user.role).toBe("admin");
+    expect((await pool.query('SELECT "accountId" FROM account WHERE "providerId"=$1 AND "userId"=$2', ["pool", "cloud-admin"])).rows[0]?.accountId).toBe(profile.sub);
+  });
   it("lets a provider session manage hashed keys and enforces expiry, throttling and owner status", async () => {
     profile = { sub: "existing", email: "existing@example.com", name: "Existing member", email_verified: true };
     const { response } = await flow();
