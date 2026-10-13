@@ -10,6 +10,7 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export default async function TeamPage({ searchParams }: { searchParams: Promise<{ board?: string }> }) {
+  if (process.env.TACK_COGNITO_MANAGED_USERS === "true") redirect("https://p2dev.cloud/users");
   const params = await searchParams;
   const parsed = boardIdSchema.safeParse(params.board);
   const boardId = parsed.success ? parsed.data : undefined;

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { GenericOAuthConfig } from "better-auth/plugins/generic-oauth";
+import { cloudManagedUsers, syncCloudUser } from "@/lib/cloud-users";
 
 const providerSchema = z.object({
   id: z.string().regex(/^[a-z][a-z0-9-]{1,39}$/).refine(id => !["local", "credential"].includes(id)),
@@ -73,7 +74,9 @@ export function providerConfig(provider: IdentityProvider): GenericOAuthConfig {
         const emailVerified = profile.email_verified === true || profile.email_verified === "true";
         if (typeof profile.sub !== "string" || !profile.sub || typeof profile.email !== "string" || !z.email().safeParse(profile.email).success || !emailVerified) return null;
         const name = typeof profile.name === "string" && profile.name.trim() ? profile.name.trim() : profile.email.split("@")[0];
-        return { id: profile.sub, name, email: profile.email.toLowerCase(), emailVerified: true };
+        const email = profile.email.toLowerCase();
+        if (provider.id === "cognito" && cloudManagedUsers) await syncCloudUser(tokens.accessToken, { sub: profile.sub, email, name });
+        return { id: profile.sub, name, email, emailVerified: true };
       } catch { return null; }
     },
   };

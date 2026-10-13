@@ -6,6 +6,7 @@ import { getDatabase } from "@/lib/database";
 
 import { readAuthProviders, providerConfig } from "@/lib/auth-providers";
 import { APIError, createAuthMiddleware } from "better-auth/api";
+import { cloudManagedUsers } from "@/lib/cloud-users";
 
 export const authentication = readAuthProviders();
 
@@ -21,8 +22,12 @@ export const auth = betterAuth({
   database: getDatabase(),
   disabledPaths: ["/api-key/create", "/api-key/update", "/api-key/delete", "/api-key/get", "/api-key/list"],
   onAPIError: { errorURL: "/sign-in" },
+  session: cloudManagedUsers ? { expiresIn: 15 * 60, updateAge: 15 * 60 } : undefined,
   hooks: {
     before: createAuthMiddleware(async context => {
+      if (cloudManagedUsers && (context.path.startsWith("/admin/") || context.path === "/sign-in/email")) {
+        throw new APIError("FORBIDDEN", { message: "Manage Cloud accounts at p2dev.cloud/users." });
+      }
       if (!["/sign-in/oauth2", "/sign-in/social", "/oauth2/link", "/link-social"].includes(context.path)) return;
       for (const key of ["callbackURL", "errorCallbackURL", "newUserCallbackURL"]) {
         const value = context.body?.[key];
